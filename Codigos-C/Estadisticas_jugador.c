@@ -23,16 +23,13 @@ typedef struct
 
 jugador_t Jugador();
 jugador_t StatsAvanzadas(jugador_t jugador);
+void ImprimirEstadisticas(jugador_t jugador);
 
 
 int main(){
     jugador_t jugador = Jugador();
     jugador = StatsAvanzadas(jugador);
-    printf("%s %s tiene %d goles y %d asistencias, con un total de %d GA\n",jugador.nombre_jugador,jugador.apellido_jugador,jugador.goles,jugador.asistencias,jugador.GA);
-    printf("Promedio de goles por partido: %.2f\n", jugador.prom_goles);
-    printf("Promedio de asistencias por partido: %.2f\n", jugador.prom_asistencias);
-    printf("Promedio de amarilas por partido: %.2f\n", jugador.prom_amarillas);
-    printf("Promedio de rojas por partido: %.2f\n", jugador.prom_rojas);
+    void ImprimirEstadisticas(jugador_t jugador);
 }
 
 
@@ -72,4 +69,15 @@ jugador_t StatsAvanzadas(jugador_t jugador){
         jugador.prom_rojas = 0;
     }
     return jugador;
+}
+void ImprimirEstadisticas(jugador_t jugador){
+    printf("Las estadisticas de %s %s:\n",jugador.nombre_jugador,jugador.apellido_jugador);
+    printf("Partidos jugados: %d\n",jugador.partidos_jugados);
+    printf("Goles totales: %d\n",jugador.goles);
+    printf("Asitencias totales: %d\n", jugador.asistencias);
+    printf("Goles+Asistencias: %d\n",jugador.GA);
+    printf("Promedio de goles por partido: %.2f\n", jugador.prom_goles);
+    printf("Promedio de asistencias por partido: %.2f\n", jugador.prom_asistencias);
+    printf("Promedio de amarilas por partido: %.2f\n", jugador.prom_amarillas);
+    printf("Promedio de rojas por partido: %.2f\n", jugador.prom_rojas);
 }
