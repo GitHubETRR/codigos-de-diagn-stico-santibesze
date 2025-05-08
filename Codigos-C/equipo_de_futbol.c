@@ -2,17 +2,17 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct jugador 
+typedef struct jugador // Datos de los jugadores
 {
     char nombre[30];
     int posicion;
     int numero;
 } jugador_t;
 
-typedef struct jugador_nodo 
+typedef struct jugador_nodo // Define un nodo para la lista enlazada, cada nodo tiene un jugador y un puntero que apunta al siguiente jugador
 {
     jugador_t jugador;
-    struct jugador_nodo* siguiente;
+    struct jugador_nodo* siguiente; // Puntero al proximo nodo, 
 } jugador_nodo_t;
 
 jugador_nodo_t* ingresar_jugador();
@@ -20,7 +20,7 @@ void agregar_jugador(jugador_nodo_t** cabeza, jugador_nodo_t* nuevo);
 void mostrar_jugadores(jugador_nodo_t* cabeza);
 
 int main() {
-    jugador_nodo_t* lista = NULL;
+    jugador_nodo_t* lista = NULL; // Se agregan jugadores a una lista vacía
     int cantidad;
     printf("¿Cuántos jugadores querés ingresar?: ");
     scanf("%d", &cantidad);
@@ -28,7 +28,7 @@ int main() {
     for (int i = 0; i < cantidad; i++)
     {
         printf("\nJugador %d:\n", i + 1);
-        jugador_nodo_t* nuevo = ingresar_jugador();
+        jugador_nodo_t* nuevo = ingresar_jugador(); // Llama a la funcion, pide los datos del jugador y vuelve a cargarlos
         agregar_jugador(&lista, nuevo);
     }
     printf("\nLista de jugadores ingresados:\n");
@@ -38,14 +38,13 @@ int main() {
 
 jugador_nodo_t* ingresar_jugador() {
     int opcion;
-    jugador_nodo_t* nuevo = malloc(sizeof(jugador_nodo_t));
+    jugador_nodo_t* nuevo = malloc(sizeof(jugador_nodo_t)); // Memoria dinamica que guardaa un espacio en memoria, crea un puntero del tamaño de "jugador_nodo_t" que indica al nodo donde esta ese espacio
     if (!nuevo)
     {
         printf("Error al asignar memoria.\n");
         exit(1);
     }
     printf("Nombre del jugador:\n");
-    getchar();
     fgets(nuevo->jugador.nombre, 30, stdin);
     nuevo->jugador.nombre[strcspn(nuevo->jugador.nombre, "\n")] = '\0'; 
     printf("Número de camiseta:\n");
@@ -67,14 +66,14 @@ void agregar_jugador(jugador_nodo_t** cabeza, jugador_nodo_t* nuevo) {
     } else 
     {
         jugador_nodo_t* temp = *cabeza;
-        while (temp->siguiente != NULL)
+        while (temp->siguiente != NULL) // Recorre la lista y se agrega el nuevo al final de la lista
             temp = temp->siguiente;
         temp->siguiente = nuevo;
     }
 }
 
 void mostrar_jugadores(jugador_nodo_t* cabeza) {
-    jugador_nodo_t* actual = cabeza;
+    jugador_nodo_t* actual = cabeza; // El puntero actual empeiza desde "cabeza" (primero nodo) y recorre la lsta
     while (actual != NULL) {
         printf("Nombre: %s\n", actual->jugador.nombre);
         printf("Número: %d\n", actual->jugador.numero);
@@ -92,7 +91,7 @@ void mostrar_jugadores(jugador_nodo_t* cabeza) {
             break;
         }
         printf("----------------------\n");
-        actual = actual->siguiente;
+        actual = actual->siguiente; // Una vez termina, pasa al siguiente jugador 
     }
 }
 
