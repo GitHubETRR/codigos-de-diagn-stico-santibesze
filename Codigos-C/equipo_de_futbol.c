@@ -56,6 +56,7 @@ jugador_nodo_t* ingresar_jugador() {
     } while (opcion < 1 || opcion > 4);
     nuevo->jugador.posicion = opcion;
     nuevo->siguiente = NULL;
+    getchar();
     return nuevo;
 }
 
