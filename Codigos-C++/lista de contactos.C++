@@ -69,7 +69,7 @@ void Contactos :: mostrar(){
     get_datos(n_out, t_out, r_out );
 
     cout << "Nombre: " << n_out << endl;
-    cout << "Numero de telefono: " << t_out << endl;
+    cout << "Numero de telefono: (+54) " << t_out << endl;
     cout << "Relacion: " << r_out << endl;    
 }
 
