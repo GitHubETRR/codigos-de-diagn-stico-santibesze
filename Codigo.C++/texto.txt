@@ -1,0 +1,67 @@
+//Conexión a Blynk
+#define BLYNK_TEMPLATE_ID "TMPL2NLwOW1Q1"
+#define BLYNK_TEMPLATE_NAME "Control Brazo 2"
+#define BLYNK_AUTH_TOKEN  "iZv2ey2yfg8iOvuL1_b8y8pX1s52apmY"
+
+//Librerias
+#include <WiFi.h>
+#include <BlynkSimpleEsp32.h>
+#include <ESP32Servo.h>
+
+// Configuracion WIFI
+char ssid[] = "ETRR Free";
+char pass[] = "";   
+
+Servo baseServo;       
+Servo shoulderServo;
+Servo elbowServo;
+Servo gripperServo;
+
+void setup() {
+  Serial.begin(115200);
+  Blynk.begin(BLYNK_AUTH_TOKEN, ssid, pass);
+  
+  // Le define a cada objeto un Pin determinado
+  baseServo.attach(16);      
+  shoulderServo.attach(17);  
+  elbowServo.attach(18);     
+  gripperServo.attach(4);    
+
+  // Centro de cada parte del brazo
+  baseServo.write(90);
+  shoulderServo.write(41);   
+  elbowServo.write(180);     
+  gripperServo.write(0);     //Garra cerrada
+}
+ 
+void loop() {
+  Blynk.run();
+}
+
+
+BLYNK_WRITE(V0) {
+  int angle = param.asInt();    
+  angle = constrain(angle, 0, 180);
+  baseServo.write(angle);
+}
+
+
+BLYNK_WRITE(V1) {
+  int angle = param.asInt();
+  angle = constrain(angle, 15, 100);
+  shoulderServo.write(angle);
+}
+
+
+BLYNK_WRITE(V2) {
+  int angle = param.asInt();
+  angle = constrain(angle, 0, 180);
+  elbowServo.write(angle);
+}
+
+
+BLYNK_WRITE(V3) {
+  int angle = param.asInt();
+  angle = constrain(angle, 0, 40);
+  gripperServo.write(angle);
+}
